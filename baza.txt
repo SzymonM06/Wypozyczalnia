@@ -1,3 +1,0 @@
-Firma: Fiat || Model: 125p || Kolor: Czerwony
-Firma: Fiat || Model: 126p || Kolor: Zielony
-Firma: Fiat || Model: 126p || Kolor: Pomaranczowy
