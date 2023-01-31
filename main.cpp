@@ -84,15 +84,31 @@ int main()
     cin >> czy_wyporzycza;
     if(czy_wyporzycza == 'T' || czy_wyporzycza == 't')//work in progress
     {
-        int x=0; //liczba linii
         ifstream wczytywanie_bazy;
         wczytywanie_bazy.open("baza_samochodow.txt");
-        string placeholder;
-        while (getline(wczytywanie_bazy, placeholder))
+        int x=0; //liczba linii
+        string samochod[x];
+        string linia;
+        while (getline(wczytywanie_bazy, linia))
         {
             x++;
         }
         cout << "Ilosc samochodow na wynajem: " << x;
+        // int nr_linii=1;      //to jest uhhh coś? coś co miało wyświetlać auta z bazy i dać nim ID... nie wiem, nie działa, jest 40 minut po północy
+        // int id=1;            //poprostu to zignoruj
+        // while(getline(wczytywanie_bazy, linia))
+        // {
+        //     switch(nr_linii)
+        //     {
+        //         case 1: samochod[id] = linia; break;
+        //     }
+        //     if(nr_linii==1)
+        //     {
+        //         nr_linii = 0;
+        //         id++;
+        //     }
+        //     nr_linii++;
+        // }
         wczytywanie_bazy.close();
     }
     else
