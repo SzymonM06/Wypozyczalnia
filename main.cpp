@@ -1,8 +1,9 @@
 /**
  * @file main.cpp
- * @author Szymon Matłosz i Dominik Wnęk
- * @brief Program służy jako aplikacja dla wyporzyczalni aut 
- * która pozwala na wyświetlanie, dodawanie i edytowanie danych o samochodach wystawnionych na wynajem
+ * @author SzymonM06 (Szymon Matłosz) i Dominikcsgo (Dominik Wnęk)
+ * @brief Program służy jako aplikacja która działa jak Airbnb tylko że dla samochodów
+ * Pozwala na wystawianie samochodów na wyporzyczenie oraz na wyporzyczenie wystawionych samochodów
+ * Program zbiera informacje osób wystawiających samochody, osób wyporzyczających i wystawionych samochodów
  * @version 0.1
  * @date 2023-01-31
  * 
@@ -19,12 +20,15 @@ int rocznik; //rok produkcji samochodu
 int przebieg; //przebieg samochodu
 char potwierdzenie_dodania; //pyta o potwierdzenie wystawienia samochodu na wyporzyczenie
 char potwierdzenie_zmiany_danych; // pyta czy chcesz zmienic dany wystawianego samochodu czy wyjsc z ap.
+
 void dodawanie_do_bazy()/**
  * @brief Dodaje informacje samochodu wystawianego na wynajem do bazy 
  * 
  */
 {
     cout <<"Podaj informacje dla samochodu ktorego chcialbys wystawic do naszej wyporzyczalni"//dialog z użytkownikiem
+        <<endl
+        <<"(Nie wstawiaj spacji lub polskich znaków!)"
         <<endl;
     cout<<"Firma: ";
     cin>> firma;
@@ -85,8 +89,10 @@ int main()
         wczytywanie_bazy.open("baza_samochodow.txt");
         string placeholder;
         while (getline(wczytywanie_bazy, placeholder))
-        x++;
-        cout << x;
+        {
+            x++;
+        }
+        cout << "Ilosc samochodow na wynajem: " << x;
         wczytywanie_bazy.close();
     }
     else
@@ -95,25 +101,35 @@ int main()
         cin >> czy_dodaje;
         if(czy_dodaje == 'T' || czy_dodaje == 't')
         {
-            cout <<"Podaj swoje dane"
+            cout <<"Podaj swoje dane (Nie wstawiaj spacji lub polskich znaków!)"
                 <<endl
                 <<"Imie: ";
             cin >> imie_wyst; //wyst - osoby wystawiajacej na wyporzyczenie 
             cout <<"Nazwisko: ";
             cin >>nazwisko_wyst;
-            cout <<"Adres: ";
+            cout <<"Adres (Ulica_Numer_Miasto): ";
             cin >>adres_wyst;
-            cout <<"Numer telefonu: ";
+            cout <<"Numer telefonu (+48_000_000_000):";
             cin >>num_tel_wyst;
             cout <<"Email: ";
             cin >>email_wyst;
-            cout << "Wyslac dane? (T/N)";
+            cout << "Wyslac dane? (T/N)"<<endl;
             cin >>potwierdzenie_danych_wyst;
             if(potwierdzenie_danych_wyst == 'T' || potwierdzenie_danych_wyst == 't')
             {
-                ofstream wystawiajacych;
-                wystawiajacych.open("baza_wystawiajacych.txt");
-                wystawiajacych.close();
+                ofstream dane_wystawiajacych;
+                dane_wystawiajacych.open("baza_wystawiajacych.txt");
+                dane_wystawiajacych << "Imie: "
+                                    << imie_wyst
+                                    << " || Nazwisko: "
+                                    <<nazwisko_wyst
+                                    <<" || Adres: "
+                                    <<adres_wyst
+                                    <<" || Numer telefonu: "
+                                    <<num_tel_wyst
+                                    <<" || Email: "
+                                    <<email_wyst;
+                dane_wystawiajacych.close();
             }
             dodawanie_do_bazy();
         } 
