@@ -126,7 +126,27 @@ void wypozyczanie()
             cout << i << nr_linii<< samochod[i] <<endl;
             nr_linii++;
         }
+
+        int tablica[500] = {0};
+        int tmp = 0;
+        ifstream zapis_do_tablicy("baza_samochodow.txt");
+
+        
+        if(zapis_do_tablicy.is_open())
+        {
+            while (!zapis_do_tablicy.eof())
+            {
+                zapis_do_tablicy >> tablica[tmp++]; 
+            }
+            zapis_do_tablicy.close();
+            for (int i=0; i<tmp; i++)
+            {
+                cout << tablica[i] << endl;
+            }
+            getchar();
+        }
     }
+
     wczytywanie_baza_samochodow.close();
     // cout <<"Wybierz samochod do wypozyczenia (numer ID): ";
     // cin >> id_samochodu;
