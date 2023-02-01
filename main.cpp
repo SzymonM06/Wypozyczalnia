@@ -43,16 +43,16 @@ void wystawianie()/**
     {
         ofstream dane_wystawiajacych;
         dane_wystawiajacych.open("baza_wystawiajacych.txt", ios::app);
-        dane_wystawiajacych << "Imie: "
+        dane_wystawiajacych << "Imie:_"
                             << imie_wyst
-                            << " || Nazwisko: "
+                            << "_||_Nazwisko:_"
                             <<nazwisko_wyst
-                            <<" || Adres: "
+                            <<"_||_Adres:_"
                             <<adres_wyst
-                            <<" || Numer telefonu: "
+                            <<"_||_Numer_telefonu:_"
                             <<num_tel_wyst
-                            <<" || Email: "
-                            <<email_wyst;
+                            <<"_||_Email:_"
+                            <<email_wyst<<endl;
         dane_wystawiajacych.close();
         cout <<"Podaj informacje dla samochodu ktorego chcialbys wystawic do naszej wyporzyczalni"<<endl
             <<"(Nie wstawiaj spacji lub polskich znakow!)"<<endl;
@@ -62,11 +62,11 @@ void wystawianie()/**
         cin >> model;
         cout << "Rocznik: ";
         cin >> rocznik;
-        cout << "Przebieg: (tylko liczby, 5000 (dobrze), 5k (zle))";
+        cout << "Przebieg (tylko liczby, 5000 (dobrze), 5k (zle)): ";
         cin >> przebieg;
         cout <<"Kolor: ";
         cin >> kolor;
-        cout <<"Cena za dzien: (PLN, tylko liczby)";
+        cout <<"Cena za dzien (PLN, tylko liczby): ";
         cin >> cena_za_dzien;
         cout <<endl<<"Dodaj samochod? (T/N)" <<endl;
         cin >> potwierdzenie_dodania;
@@ -76,17 +76,17 @@ void wystawianie()/**
             dodaj_samochod.open("baza_samochodow.txt", ios::app);
             if(dodaj_samochod.is_open())
             {
-                dodaj_samochod <<"Firma: "
+                dodaj_samochod <<"Firma:"
                     << firma 
-                    << " || Model: " 
+                    << "_Model:" 
                     << model 
-                    << " || Rocznik: "
+                    << "_Rocznik:"
                     << rocznik
-                    << " || Przebieg: " 
+                    << "_Przebieg:" 
                     << przebieg
-                    <<" || Kolor: "
+                    <<"_Kolor:"
                     << kolor
-                    <<" || Cena za dzien: "
+                    <<"_Cena-za-dzien:"
                     << cena_za_dzien<<endl;
             }
             dodaj_samochod.close();
@@ -99,7 +99,7 @@ void wypozyczanie()
     char potwierdzenie_danych_wyp;
     int id_samochodu; // id samochodu wybrane przez wypozyczajacego
     int x=0; //liczba linii
-    string samochod[x];
+    string samochod[5];
     ifstream wczytywanie_baza_samochodow;
     wczytywanie_baza_samochodow.open("baza_samochodow.txt");
     if(wczytywanie_baza_samochodow.is_open())
@@ -112,18 +112,25 @@ void wypozyczanie()
             cout<<x<<". "<<linia<<endl<<"---------------------------------------------"<<endl; 
         }
         cout<<endl;
-        cout << "Ilosc samochodow na wynajem: " << x<<endl;
-        int a = 0;
-        for(string linia2;getline(wczytywanie_baza_samochodow, linia2);)
+        cout << "Ilosc samochodow na wynajem: " << x<<endl<<endl;
+        int nr_linii = 0;
+        string linia2;
+        while(getline(wczytywanie_baza_samochodow, linia2))
         {
-            samochod[a]=linia2;
-            a++;
+            samochod[nr_linii] = linia2;
+            nr_linii++;
+            cout <<"debug";
+        }
+        for(int i = 0; i < x; i++)
+        {
+            cout << i << nr_linii<< samochod[i] <<endl;
+            nr_linii++;
         }
     }
     wczytywanie_baza_samochodow.close();
-    cout <<"Wybierz samochod do wypozyczenia (numer ID): ";
-    cin >> id_samochodu;
-    id_samochodu = id_samochodu - 1;
+    // cout <<"Wybierz samochod do wypozyczenia (numer ID): ";
+    // cin >> id_samochodu;
+    // id_samochodu = id_samochodu - 1;
     // cout << samochod[id_samochodu];
 
     
@@ -146,16 +153,16 @@ void wypozyczanie()
     {
         ofstream dane_wyporzyczajacych;
         dane_wyporzyczajacych.open("baza_wyporzyczajacych.txt", ios::app);
-        dane_wyporzyczajacych << "Imie: "
+        dane_wyporzyczajacych << "Imie:_"
                             << imie_wyp
-                            << " || Nazwisko: "
+                            << "_||_Nazwisko:_"
                             <<nazwisko_wyp
-                            <<" || Adres: "
+                            <<"_||_Adres:_"
                             <<adres_wyp
-                            <<" || Numer telefonu: "
+                            <<"_||_Numer_telefonu:_"
                             <<num_tel_wyp
-                            <<" || Email: "
-                            <<email_wyp;
+                            <<"_||_Email:_"
+                            <<email_wyp<<endl;
         dane_wyporzyczajacych.close();
     }
 }
