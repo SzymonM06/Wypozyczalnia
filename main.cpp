@@ -20,7 +20,6 @@ int rocznik; //rok produkcji samochodu
 int przebieg; //przebieg samochodu
 char potwierdzenie_dodania; //pyta o potwierdzenie wystawienia samochodu na wyporzyczenie
 char potwierdzenie_zmiany_danych; // pyta czy chcesz zmienic dany wystawianego samochodu czy wyjsc z ap.
-
 void dodawanie_do_bazy()/**
  * @brief Dodaje informacje samochodu wystawianego na wynajem do bazy 
  * 
@@ -81,6 +80,32 @@ int main()
     string email_wyp;
     char potwierdzenie_danych_wyp;
 
+    
+    int tablica[500] = {0};
+    int tmp = 0;
+    ifstream zapis_do_tablicy("baza_samochodow.txt");
+   
+    if (!zapis_do_tablicy)
+    {
+        cout << "Nie mozna otworzyc pliku";
+        getchar();
+        return 1;
+    }
+
+    while (!zapis_do_tablicy.eof())
+       zapis_do_tablicy >> tablica[tmp++]; 
+       
+    zapis_do_tablicy.close();
+   
+    for (int i=0; i<tmp; i++)
+         cout << tablica[i] << endl;
+
+    getchar();
+    return 0;
+     
+   
+
+
 
     cout <<"+--------------------------------------------+"//powitanie
         <<endl
@@ -96,6 +121,7 @@ int main()
         cout<<"+-------------------------------------------+"<<endl;
         ifstream wczytywanie_bazy;
         wczytywanie_bazy.open("baza_samochodow.txt");
+
         int x=0; //liczba linii
         string samochod[x];
         string linia;
@@ -198,4 +224,5 @@ int main()
             return 0;
         }
     }
+}
 }
