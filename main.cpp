@@ -13,216 +13,172 @@
 #include <iostream> 
 #include <fstream>
 using namespace std;
-string model; //model samochodu
-string kolor; //kolor samochodu
-string firma; //firma ktora wyprodukowala dany samochod
-int rocznik; //rok produkcji samochodu
-int przebieg; //przebieg samochodu
-char potwierdzenie_dodania; //pyta o potwierdzenie wystawienia samochodu na wyporzyczenie
-char potwierdzenie_zmiany_danych; // pyta czy chcesz zmienic dany wystawianego samochodu czy wyjsc z ap.
-void dodawanie_do_bazy()/**
- * @brief Dodaje informacje samochodu wystawianego na wynajem do bazy 
+void wystawianie()/**
+ * @brief Pyta o informacjie potrzebnę do wystawienia samochodu na wyporzyczenie oraz zapisuje je w bazach
  * 
  */
 {
-    cout <<"Podaj informacje dla samochodu ktorego chcialbys wystawic do naszej wyporzyczalni"//dialog z użytkownikiem
+    string imie_wyst, nazwisko_wyst, adres_wyst, email_wyst, num_tel_wyst; //dane string wystawiającego
+    char potwierdzenie_danych_wyst;
+    string model, kolor, firma; //informacje o samochodzie string
+    int rocznik, przebieg; //informacje o samochodzie int
+    float cena_za_dzien; //info o samochodzie float
+    char potwierdzenie_dodania; // potwierdzenia
+    cout <<"Podaj swoje dane (Nie wstawiaj spacji lub polskich znakow!)"
         <<endl
-        <<"(Nie wstawiaj spacji lub polskich znakow!)"
-        <<endl;
-    cout<<"Firma: ";
-    cin>> firma;
-    cout<<"Model: ";
-    cin >> model;
-    cout << "Rocznik: ";
-    cin >> rocznik;
-    cout << "Przebieg: ";
-    cin >> przebieg;
-    cout <<"Kolor: ";
-    cin >> kolor;
-    cout <<endl<<"Dodaj samochod? (T/N)" <<endl; //potwierdzenie 
-    cin >> potwierdzenie_dodania;
-    if(potwierdzenie_dodania == 'T' || potwierdzenie_dodania == 't')
+        <<"Imie: ";
+    cin >> imie_wyst; //wyst - osoby wystawiajacej na wyporzyczenie 
+    cout <<"Nazwisko: ";
+    cin >>nazwisko_wyst;
+    cout <<"Adres (Ulica_Numer_Miasto): ";
+    cin >>adres_wyst;
+    cout <<"Numer telefonu (+48_000_000_000): ";
+    cin >>num_tel_wyst;
+    cin.ignore();
+    cout <<"Email: ";
+    cin >>email_wyst;
+    cout << "Wyslac dane? (T/N)"<<endl;
+    cin >>potwierdzenie_danych_wyst;
+    if(potwierdzenie_danych_wyst == 'T' || potwierdzenie_danych_wyst == 't')
     {
-        ofstream dodaj;
-        dodaj.open("baza_samochodow.txt", ios::app);
-        if(dodaj.is_open())
+        ofstream dane_wystawiajacych;
+        dane_wystawiajacych.open("baza_wystawiajacych.txt", ios::app);
+        dane_wystawiajacych << "Imie: "
+                            << imie_wyst
+                            << " || Nazwisko: "
+                            <<nazwisko_wyst
+                            <<" || Adres: "
+                            <<adres_wyst
+                            <<" || Numer telefonu: "
+                            <<num_tel_wyst
+                            <<" || Email: "
+                            <<email_wyst;
+        dane_wystawiajacych.close();
+        cout <<"Podaj informacje dla samochodu ktorego chcialbys wystawic do naszej wyporzyczalni"<<endl
+            <<"(Nie wstawiaj spacji lub polskich znakow!)"<<endl;
+        cout<<"Firma: ";
+        cin>> firma;
+        cout<<"Model: ";
+        cin >> model;
+        cout << "Rocznik: ";
+        cin >> rocznik;
+        cout << "Przebieg: (tylko liczby, 5000 (dobrze), 5k (zle))";
+        cin >> przebieg;
+        cout <<"Kolor: ";
+        cin >> kolor;
+        cout <<"Cena za dzien: (PLN, tylko liczby)";
+        cin >> cena_za_dzien;
+        cout <<endl<<"Dodaj samochod? (T/N)" <<endl;
+        cin >> potwierdzenie_dodania;
+        if(potwierdzenie_dodania == 'T' || potwierdzenie_dodania == 't')
         {
-            dodaj <<"Firma: " //wpisuje do bazy
-                << firma 
-                << " || Model: " 
-                << model 
-                << " || Rocznik: "
-                << rocznik
-                << " || Przebieg: " 
-                << przebieg
-                <<" || Kolor: "
-                << kolor
-                <<endl;
+            ofstream dodaj_samochod;
+            dodaj_samochod.open("baza_samochodow.txt", ios::app);
+            if(dodaj_samochod.is_open())
+            {
+                dodaj_samochod <<"Firma: "
+                    << firma 
+                    << " || Model: " 
+                    << model 
+                    << " || Rocznik: "
+                    << rocznik
+                    << " || Przebieg: " 
+                    << przebieg
+                    <<" || Kolor: "
+                    << kolor
+                    <<" || Cena za dzien: "
+                    << cena_za_dzien<<endl;
+            }
+            dodaj_samochod.close();
         }
-        dodaj.close();
+    }
+}
+void wypozyczanie()
+{
+    string imie_wyp, nazwisko_wyp, adres_wyp, email_wyp, num_tel_wyp; //dane string wyporzyczającego
+    char potwierdzenie_danych_wyp;
+    int id_samochodu; // id samochodu wybrane przez wypozyczajacego
+    int x=0; //liczba linii
+    string samochod[x];
+    ifstream wczytywanie_baza_samochodow;
+    wczytywanie_baza_samochodow.open("baza_samochodow.txt");
+    if(wczytywanie_baza_samochodow.is_open())
+    {
+        cout<<endl<<"---------------------------------------------"<<endl;
+        string linia;
+        while (getline(wczytywanie_baza_samochodow, linia))
+        {
+            x++;
+            cout<<x<<". "<<linia<<endl<<"---------------------------------------------"<<endl; 
+        }
+        cout<<endl;
+        cout << "Ilosc samochodow na wynajem: " << x<<endl;
+        int a = 0;
+        for(string linia2;getline(wczytywanie_baza_samochodow, linia2);)
+        {
+            samochod[a]=linia2;
+            a++;
+        }
+    }
+    wczytywanie_baza_samochodow.close();
+    cout <<"Wybierz samochod do wypozyczenia (numer ID): ";
+    cin >> id_samochodu;
+    id_samochodu = id_samochodu - 1;
+    // cout << samochod[id_samochodu];
+
+    
+
+    cout <<"Podaj swoje dane (Nie wstawiaj spacji lub polskich znakow!)"
+        <<endl
+        <<"Imie: ";
+    cin >> imie_wyp; //wyp - wypożyczający
+    cout <<"Nazwisko: ";
+    cin >>nazwisko_wyp;
+    cout <<"Adres (Ulica_Numer_Miasto): ";
+    cin >>adres_wyp;
+    cout <<"Numer telefonu (+48_000_000_000):";
+    cin >>num_tel_wyp;
+    cout <<"Email: ";
+    cin >>email_wyp;
+    cout << "Wyslac dane? (T/N)"<<endl;
+    cin >>potwierdzenie_danych_wyp;
+    if(potwierdzenie_danych_wyp == 'T' || potwierdzenie_danych_wyp == 't')
+    {
+        ofstream dane_wyporzyczajacych;
+        dane_wyporzyczajacych.open("baza_wyporzyczajacych.txt", ios::app);
+        dane_wyporzyczajacych << "Imie: "
+                            << imie_wyp
+                            << " || Nazwisko: "
+                            <<nazwisko_wyp
+                            <<" || Adres: "
+                            <<adres_wyp
+                            <<" || Numer telefonu: "
+                            <<num_tel_wyp
+                            <<" || Email: "
+                            <<email_wyp;
+        dane_wyporzyczajacych.close();
     }
 }
 int main()
 {
-    
-    string imie_wyst; //imie osoby wystawiającej samochod na wypozyczenie 
-    string nazwisko_wyst; //nazwisko osoby wystawiającej samochod na wypozyczenie 
-    string adres_wyst; //adres osoby wystawiającej samochod na wypozyczenie 
-    int num_tel_wyst; //numer telefonu osoby wystawiającej samochod na wypozyczenie 
-    string email_wyst; // email osoby wystawiającej samochod na wypozyczenie 
-    char potwierdzenie_danych_wyst; // potwierdzenie podanych danych osoby wystawiającej samochod na wypozyczenie 
-    char czy_wyporzycza; //pyta czy urzytkownik wyporzycza samochod
-    char czy_dodaje; //pyta czy urzytkownik dodaj samochod do wyporzyczalni 
-    string imie_wyp;
-    string nazwisko_wyp;
-    string adres_wyp;
-    int num_tel_wyp;    
-    string email_wyp;
-    char potwierdzenie_danych_wyp;
-
-    
-    int tablica[500] = {0};
-    int tmp = 0;
-    ifstream zapis_do_tablicy("baza_samochodow.txt");
-   
-    if (!zapis_do_tablicy)
-    {
-        cout << "Nie mozna otworzyc pliku";
-        getchar();
-        return 1;
+    char co_uzytkownik_chce;
+    cout <<"+--------------------------------------------+"<<endl
+        <<"| Witam w naszej  internetowej wypozyczalni! |"<<endl
+        <<"+--------------------------------------------+"<<endl<<endl
+        <<"Wyporzycz samochod (A)"<<endl
+        <<"Wystaw samochod na wyporzyczenie (B)"<<endl
+        <<"Wyjdz (jaki kolwiek inny znak)"<<endl;
+    cin >> co_uzytkownik_chce;
+    if(co_uzytkownik_chce == 'A' || co_uzytkownik_chce == 'a')
+    {  
+        wypozyczanie();
     }
-
-    while (!zapis_do_tablicy.eof())
-       zapis_do_tablicy >> tablica[tmp++]; 
-       
-    zapis_do_tablicy.close();
-   
-    for (int i=0; i<tmp; i++)
-         cout << tablica[i] << endl;
-
-    getchar();
-    return 0;
-     
-   
-
-
-
-    cout <<"+--------------------------------------------+"//powitanie
-        <<endl
-        <<"| Witam w naszej  internetowej wypozyczalni! |"
-        <<endl
-        <<"+--------------------------------------------+"
-        <<endl
-        <<endl
-        <<"Czy chcesz wypozyczyc samochod? (T/N)"<<endl;
-    cin >> czy_wyporzycza;
-    if(czy_wyporzycza == 'T' || czy_wyporzycza == 't')//work in progress
+    if(co_uzytkownik_chce == 'B' || co_uzytkownik_chce == 'b')
     {
-        cout<<"+-------------------------------------------+"<<endl;
-        ifstream wczytywanie_bazy;
-        wczytywanie_bazy.open("baza_samochodow.txt");
-
-        int x=0; //liczba linii
-        string samochod[x];
-        string linia;
-        while (getline(wczytywanie_bazy, linia))
-        {
-             x++;
-             cout<<x<<"."<<linia<<"\n"<<"---------------------------------------------"<<endl;;
-             
-        }
-
-        cout<<"+-------------------------------------------+"<<endl;
-        cout << "Ilosc samochodow na wynajem: " << x<<endl;
-        // int x2=0;
-        // samochod[x];
-        // while(getline(wczytywanie_bazy,linia))
-        // {
-        //     samochod[x2]=linia;
-        //     x2++;
-        // }
-        // for(int i=0;i<x2;i++)
-        // {
-        //     cout<<samochod[i];
-        // }
-        // int a;
-        // cout<<"Podaj numer ktory samochod chcesz wyswietlic"<<endl;
-        // cin>>a;
-        // cout<<samochod[a];
-      
-        wczytywanie_bazy.close();
-        cout <<"Podaj swoje dane (Nie wstawiaj spacji lub polskich znaków!)"
-                <<endl
-                <<"Imie: ";
-            cin >> imie_wyp; //wyst - osoby która chce wypożyczyć
-            cout <<"Nazwisko: ";
-            cin >>nazwisko_wyp;
-            cout <<"Adres (Ulica_Numer_Miasto): ";
-            cin >>adres_wyp;
-            cout <<"Numer telefonu (+48_000_000_000):";
-            cin >>num_tel_wyp;
-            cout <<"Email: ";
-            cin >>email_wyp;
-            cout << "Wyslac dane? (T/N)"<<endl;
-            cin >>potwierdzenie_danych_wyp;
-             if(potwierdzenie_danych_wyp == 'T' || potwierdzenie_danych_wyp == 't')
-            {
-                ofstream dane_wyporzyczajacych;
-                dane_wyporzyczajacych.open("baza_wyporzyczajacych.txt");
-                dane_wyporzyczajacych << "Imie: "
-                                    << imie_wyp
-                                    << " || Nazwisko: "
-                                    <<nazwisko_wyp
-                                    <<" || Adres: "
-                                    <<adres_wyp
-                                    <<" || Numer telefonu: "
-                                    <<num_tel_wyp
-                                    <<" || Email: "
-                                    <<email_wyp;
-                dane_wyporzyczajacych.close();
+        wystawianie(); 
     }
-    else
+    if(co_uzytkownik_chce != 'A' || co_uzytkownik_chce != 'a' || co_uzytkownik_chce != 'B' || co_uzytkownik_chce != 'b')
     {
-        cout << "Czy chcesz dodac samochod do wypozyczalni? (T/N)"<<endl;
-        cin >> czy_dodaje;
-        if(czy_dodaje == 'T' || czy_dodaje == 't')
-        {
-            cout <<"Podaj swoje dane (Nie wstawiaj spacji lub polskich znaków!)"
-                <<endl
-                <<"Imie: ";
-            cin >> imie_wyst; //wyst - osoby wystawiajacej na wyporzyczenie 
-            cout <<"Nazwisko: ";
-            cin >>nazwisko_wyst;
-            cout <<"Adres (Ulica_Numer_Miasto): ";
-            cin >>adres_wyst;
-            cout <<"Numer telefonu (+48_000_000_000):";
-            cin >>num_tel_wyst;
-            cout <<"Email: ";
-            cin >>email_wyst;
-            cout << "Wyslac dane? (T/N)"<<endl;
-            cin >>potwierdzenie_danych_wyst;
-            if(potwierdzenie_danych_wyst == 'T' || potwierdzenie_danych_wyst == 't')
-            {
-                ofstream dane_wystawiajacych;
-                dane_wystawiajacych.open("baza_wystawiajacych.txt");
-                dane_wystawiajacych << "Imie: "
-                                    << imie_wyst
-                                    << " || Nazwisko: "
-                                    <<nazwisko_wyst
-                                    <<" || Adres: "
-                                    <<adres_wyst
-                                    <<" || Numer telefonu: "
-                                    <<num_tel_wyst
-                                    <<" || Email: "
-                                    <<email_wyst;
-                dane_wystawiajacych.close();
-            }
-            dodawanie_do_bazy();
-        } 
-        else
-        {
-            return 0;
-        }
+        return 0;
     }
-}
 }

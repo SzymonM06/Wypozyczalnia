@@ -1,4 +1,1 @@
-Fiat Punto 1999 200000tys-km czerwony
-b
-c
-d
+Firma: Fiat || Model: 126p || Rocznik: 1980 || Przebieg: 50000 || Kolor: Zielony || Cena za dzien: 100

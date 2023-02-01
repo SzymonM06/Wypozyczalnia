@@ -1,0 +1,1 @@
+Imie: Szymon || Nazwisko: Matlosz || Adres: Ulica_16_Strzyzow || Numer telefonu: +48_123_456_789 || Email: email@gmail.com
