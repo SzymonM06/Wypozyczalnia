@@ -74,6 +74,14 @@ int main()
     char potwierdzenie_danych_wyst; // potwierdzenie podanych danych osoby wystawiającej samochod na wypozyczenie 
     char czy_wyporzycza; //pyta czy urzytkownik wyporzycza samochod
     char czy_dodaje; //pyta czy urzytkownik dodaj samochod do wyporzyczalni 
+    string imie_wyp;
+    string nazwisko_wyp;
+    string adres_wyp;
+    int num_tel_wyp;    
+    string email_wyp;
+    char potwierdzenie_danych_wyp;
+
+
     cout <<"+--------------------------------------------+"//powitanie
         <<endl
         <<"| Witam w naszej  internetowej wypozyczalni! |"
@@ -100,23 +108,52 @@ int main()
 
         cout<<"+-------------------------------------------+"<<endl;
         cout << "Ilosc samochodow na wynajem: " << x<<endl;
-        int x2=0;
-        samochod[x];
-        while(getline(wczytywanie_bazy,linia))
-        {
-            samochod[x2]=linia;
-            x2++;
-        }
-        for(int i=0;i<x2;i++)
-        {
-            cout<<samochod[i];
-        }
-        int a;
-        cout<<"Podaj numer ktory samochod chcesz wyswietlic"<<endl;
-        cin>>a;
-        cout<<samochod[a];
+        // int x2=0;
+        // samochod[x];
+        // while(getline(wczytywanie_bazy,linia))
+        // {
+        //     samochod[x2]=linia;
+        //     x2++;
+        // }
+        // for(int i=0;i<x2;i++)
+        // {
+        //     cout<<samochod[i];
+        // }
+        // int a;
+        // cout<<"Podaj numer ktory samochod chcesz wyswietlic"<<endl;
+        // cin>>a;
+        // cout<<samochod[a];
       
         wczytywanie_bazy.close();
+        cout <<"Podaj swoje dane (Nie wstawiaj spacji lub polskich znaków!)"
+                <<endl
+                <<"Imie: ";
+            cin >> imie_wyp; //wyst - osoby która chce wypożyczyć
+            cout <<"Nazwisko: ";
+            cin >>nazwisko_wyp;
+            cout <<"Adres (Ulica_Numer_Miasto): ";
+            cin >>adres_wyp;
+            cout <<"Numer telefonu (+48_000_000_000):";
+            cin >>num_tel_wyp;
+            cout <<"Email: ";
+            cin >>email_wyp;
+            cout << "Wyslac dane? (T/N)"<<endl;
+            cin >>potwierdzenie_danych_wyp;
+             if(potwierdzenie_danych_wyp == 'T' || potwierdzenie_danych_wyp == 't')
+            {
+                ofstream dane_wyporzyczajacych;
+                dane_wyporzyczajacych.open("baza_wyporzyczajacych.txt");
+                dane_wyporzyczajacych << "Imie: "
+                                    << imie_wyp
+                                    << " || Nazwisko: "
+                                    <<nazwisko_wyp
+                                    <<" || Adres: "
+                                    <<adres_wyp
+                                    <<" || Numer telefonu: "
+                                    <<num_tel_wyp
+                                    <<" || Email: "
+                                    <<email_wyp;
+                dane_wyporzyczajacych.close();
     }
     else
     {
