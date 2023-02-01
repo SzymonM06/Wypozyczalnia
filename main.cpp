@@ -28,7 +28,7 @@ void dodawanie_do_bazy()/**
 {
     cout <<"Podaj informacje dla samochodu ktorego chcialbys wystawic do naszej wyporzyczalni"//dialog z użytkownikiem
         <<endl
-        <<"(Nie wstawiaj spacji lub polskich znaków!)"
+        <<"(Nie wstawiaj spacji lub polskich znakow!)"
         <<endl;
     cout<<"Firma: ";
     cin>> firma;
@@ -65,6 +65,7 @@ void dodawanie_do_bazy()/**
 }
 int main()
 {
+    
     string imie_wyst; //imie osoby wystawiającej samochod na wypozyczenie 
     string nazwisko_wyst; //nazwisko osoby wystawiającej samochod na wypozyczenie 
     string adres_wyst; //adres osoby wystawiającej samochod na wypozyczenie 
@@ -84,6 +85,7 @@ int main()
     cin >> czy_wyporzycza;
     if(czy_wyporzycza == 'T' || czy_wyporzycza == 't')//work in progress
     {
+        cout<<"+-------------------------------------------+"<<endl;
         ifstream wczytywanie_bazy;
         wczytywanie_bazy.open("baza_samochodow.txt");
         int x=0; //liczba linii
@@ -91,24 +93,29 @@ int main()
         string linia;
         while (getline(wczytywanie_bazy, linia))
         {
-            x++;
+             x++;
+             cout<<x<<"."<<linia<<"\n"<<"---------------------------------------------"<<endl;;
+             
         }
-        cout << "Ilosc samochodow na wynajem: " << x;
-        // int nr_linii=1;      //to jest uhhh coś? coś co miało wyświetlać auta z bazy i dać nim ID... nie wiem, nie działa, jest 40 minut po północy
-        // int id=1;            //poprostu to zignoruj
-        // while(getline(wczytywanie_bazy, linia))
-        // {
-        //     switch(nr_linii)
-        //     {
-        //         case 1: samochod[id] = linia; break;
-        //     }
-        //     if(nr_linii==1)
-        //     {
-        //         nr_linii = 0;
-        //         id++;
-        //     }
-        //     nr_linii++;
-        // }
+
+        cout<<"+-------------------------------------------+"<<endl;
+        cout << "Ilosc samochodow na wynajem: " << x<<endl;
+        int x2=0;
+        samochod[x];
+        while(getline(wczytywanie_bazy,linia))
+        {
+            samochod[x2]=linia;
+            x2++;
+        }
+        for(int i=0;i<x2;i++)
+        {
+            cout<<samochod[i];
+        }
+        int a;
+        cout<<"Podaj numer ktory samochod chcesz wyswietlic"<<endl;
+        cin>>a;
+        cout<<samochod[a];
+      
         wczytywanie_bazy.close();
     }
     else
