@@ -119,31 +119,13 @@ void wypozyczanie()
         {
             samochod[nr_linii] = linia2;
             nr_linii++;
+            cout <<"linia2";
             cout <<"debug";
         }
         for(int i = 0; i < x; i++)
         {
             cout << i << nr_linii<< samochod[i] <<endl;
             nr_linii++;
-        }
-
-        int tablica[500] = {0};
-        int tmp = 0;
-        ifstream zapis_do_tablicy("baza_samochodow.txt");
-
-        
-        if(zapis_do_tablicy.is_open())
-        {
-            while (!zapis_do_tablicy.eof())
-            {
-                zapis_do_tablicy >> tablica[tmp++]; 
-            }
-            zapis_do_tablicy.close();
-            for (int i=0; i<tmp; i++)
-            {
-                cout << tablica[i] << endl;
-            }
-            getchar();
         }
     }
 
