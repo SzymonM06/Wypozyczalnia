@@ -1,1 +1,1 @@
-main.o: main.cpp
+obj/main.o: src/main.cpp

@@ -42,7 +42,7 @@ void wystawianie()/**
     if(potwierdzenie_danych_wyst == 'T' || potwierdzenie_danych_wyst == 't')
     {
         ofstream dane_wystawiajacych;
-        dane_wystawiajacych.open("baza_wystawiajacych.txt", ios::app);
+        dane_wystawiajacych.open("databaza_wystawiajacych.txt", ios::app);
         dane_wystawiajacych << "Imie:_"
                             << imie_wyst
                             << "_||_Nazwisko:_"
@@ -97,7 +97,6 @@ void wypozyczanie()
 {
     string imie_wyp, nazwisko_wyp, adres_wyp, email_wyp, num_tel_wyp; //dane string wyporzyczającego
     char potwierdzenie_danych_wyp;
-    int id_samochodu; // id samochodu wybrane przez wypozyczajacego
     int x=0; //liczba linii
     string samochod[5];
     ifstream wczytywanie_baza_samochodow;
