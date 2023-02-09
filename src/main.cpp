@@ -12,7 +12,16 @@
  */
 #include <iostream> 
 #include <fstream>
+#include "./include/baza_samochody.h"
+#include "./include/klasy.h"
 using namespace std;
+Samochod MySamochod;
+
+
+
+
+
+
 void wystawianie()/**
  * @brief Pyta o informacjie potrzebnę do wystawienia samochodu na wyporzyczenie oraz zapisuje je w bazach
  * 
@@ -20,9 +29,7 @@ void wystawianie()/**
 {
     string imie_wyst, nazwisko_wyst, adres_wyst, email_wyst, num_tel_wyst; //dane string wystawiającego
     char potwierdzenie_danych_wyst;
-    string model, kolor, firma; //informacje o samochodzie string
-    int rocznik, przebieg; //informacje o samochodzie int
-    float cena_za_dzien; //info o samochodzie float
+    string model, kolor, firma, rocznik, przebieg, cena_za_dzien; //informacje o samochodzie string
     char potwierdzenie_dodania; // potwierdzenia
     cout <<"Podaj swoje dane (Nie wstawiaj spacji lub polskich znakow!)"
         <<endl
@@ -114,7 +121,7 @@ void wypozyczanie()
         cout << "Ilosc samochodow na wynajem: " << x<<endl<<endl;
         int nr_linii = 0;
         string linia2;
-        while(getline(wczytywanie_baza_samochodow, linia2))
+        while(getline(wczytywanie_baza_samochodow, linia2)) // this while() is getting ignored and i fucking wish i knew why
         {
             samochod[nr_linii] = linia2;
             nr_linii++;
