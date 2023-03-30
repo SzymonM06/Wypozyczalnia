@@ -1,5 +1,7 @@
 #include "./include/klasy.h"
-Samochod:: Samochod(string firma,
+
+
+Samochod::Samochod(string firma,
                     string model,
                     string rocznik,
                     string przebieg,
@@ -13,7 +15,12 @@ Samochod:: Samochod(string firma,
     cena_za_dzien_(cena_za_dzien)
 {}
 
-string Samochod::show() const
+Samochod::Samochod()
+{
+    
+}
+
+string Samochod::show()
 {
     return firma_ 
         + "; " + model_ 
