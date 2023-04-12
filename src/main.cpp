@@ -16,6 +16,12 @@ using namespace std;
 
 int main()
 {
+    cout << "+------------------------------+" <<endl;
+    cout << "| Witaj w naszej wypozyczalni! |" <<endl;
+    cout << "+------------------------------+" <<endl; 
+
+
+    vector<string> dane_zwracanego_samochodu;
     vector<string> dane;
     string imie, nazwisko, marka, model, dzien_wypozyczenia,miesiac_wypozyczenia,rok_wypozyczenia;
     
