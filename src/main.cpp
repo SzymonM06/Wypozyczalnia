@@ -2,8 +2,8 @@
  * @file main.cpp
  * @author SzymonM06 (Szymon Matłosz) i Dominikcsgo (Dominik Wnęk)
  * @brief Program służy jako aplikacja która działa jak Airbnb tylko że dla samochodów
- * Pozwala na wystawianie samochodów na wyporzyczenie oraz na wyporzyczenie wystawionych samochodów
- * Program zbiera informacje osób wystawiających samochody, osób wyporzyczających i wystawionych samochodów
+ * Pozwala na wystawianie samochodów na wypozyczenie oraz na wypozyczenie wystawionych samochodów
+ * Program zbiera informacje osób wystawiających samochody, osób wypozyczających i wystawionych samochodów
  * @version 0.1
  * @date 2023-01-31
  *
@@ -12,16 +12,69 @@
  */
 #include <iostream>
 #include <fstream>
+#include <vector>
 using namespace std;
+
 int main()
 {
-    char co_uzytkownik_chce;
-    cout << "+--------------------------------------------+" << endl
-         << "| Witam w naszej  internetowej wypozyczalni! |" << endl
-         << "+--------------------------------------------+" << endl
-         << endl
-         << "Wyporzycz samochod (A)" << endl
-         << "Wystaw samochod na wyporzyczenie (B)" << endl
-         << "Wyjdz (jaki kolwiek inny znak)" << endl;
-    cin >> co_uzytkownik_chce;
+    vector<string> dane;
+    string imie, nazwisko, marka, model, dzien_wypozyczenia,miesiac_wypozyczenia,rok_wypozyczenia;
+    
+    int numer_rejestracyjny,numer_dowodu;
+
+    while (true)
+    {
+        cout << "Podaj swoje imie: ";
+        cin >> imie;
+        cout << "Podaj swoje nazwisko: ";
+        cin >> nazwisko;
+        cout << "Podaj numer swojego dowodu osobistego: ";
+        cin >> numer_dowodu;
+        cout << "Podaj numer rejestracyjny samochodu: ";
+        cin >> numer_rejestracyjny;
+        cout << "Podaj marke samochodu: ";
+        cin >> marka;
+        cout << "Podaj model samochodu: ";
+        cin >> model;
+        cout << "Podaj dzien wypozyczenia samochodu: ";
+        cin >> dzien_wypozyczenia;
+        cout << "Podaj miesiac wypozyczenia samochodu: ";
+        cin >> miesiac_wypozyczenia;
+        cout << "Podaj rok wypozyczenia samochodu: ";
+        cin >> rok_wypozyczenia;
+
+        // Zapisywanie danych do wektora
+        dane.push_back(imie + ":" + nazwisko + ":" + to_string(numer_dowodu) + ":" + to_string(numer_rejestracyjny) + ":" + marka + ":" + model + " " + dzien_wypozyczenia+" "+ miesiac_wypozyczenia+" "+rok_wypozyczenia);
+
+        // Wyświetlanie danych na ekranie
+        cout << "Czy dane sa poprawne? (T/N): ";
+        char potwierdzenie;
+        cin >> potwierdzenie;
+        if (potwierdzenie == 'T' || potwierdzenie == 't')
+        {
+            break;
+        }
+        else
+        {
+            dane.pop_back(); // Usuwanie ostatnio wprowadzonych danych z wektora
+        }
+    }
+
+    // Zapisywanie danych do pliku tekstowego
+    ofstream plik("dane_wypozyczajacego.txt",ios::app);
+    if (plik.is_open())
+    {
+        for (auto &dana : dane)
+        {
+            plik << dana << endl;
+        }
+        plik.close();
+        cout << "Dane zostaly zapisane do pliku dane.txt." << endl;
+    }
+    else
+    {
+        cout << "Nie udalo sie otworzyc pliku dane.txt." << endl;
+    }
+
+    return 0;
 }
