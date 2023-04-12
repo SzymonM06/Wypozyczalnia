@@ -1,9 +1,7 @@
 /**
  * @file main.cpp
  * @author SzymonM06 (Szymon Matłosz) i Dominikcsgo (Dominik Wnęk)
- * @brief Program służy jako aplikacja która działa jak Airbnb tylko że dla samochodów
- * Pozwala na wystawianie samochodów na wypozyczenie oraz na wypozyczenie wystawionych samochodów
- * Program zbiera informacje osób wystawiających samochody, osób wypozyczających i wystawionych samochodów
+ * @brief Program służy jako internetowa wypozyczalnia samochodow.
  * @version 0.1
  * @date 2023-01-31
  *
