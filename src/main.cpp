@@ -24,7 +24,7 @@ int main()
     cout << "Co chcesz zrobic?" << endl
          << "1. Wypozyczyc samochod" << endl
          << "2. Oddac wypozyczony samochod" << endl
-         << "3. Wyjsc"<<endl;
+         << "3. Wyjsc" << endl;
     cin >> co_uzytkownik_chce;
 
     if (co_uzytkownik_chce == 1)
@@ -54,6 +54,7 @@ int main()
             cin >> rok_wypozyczenia;
 
             // Zapisywanie danych do wektora
+
             dane.push_back(imie + ":" + nazwisko + ":" + to_string(numer_dowodu) + ":" + to_string(numer_rejestracyjny) + ":" + marka + ":" + model + " " + dzien_wypozyczenia + " " + miesiac_wypozyczenia + " " + rok_wypozyczenia);
 
             // Wyświetlanie danych na ekranie
@@ -86,17 +87,13 @@ int main()
         {
             cout << "Nie udalo sie otworzyc pliku dane.txt." << endl;
         }
+      
     }
-    else if (co_uzytkownik_chce==2)
+    else if (co_uzytkownik_chce == 2)
     {
-        vector<string> dane;
+        
 
 
-
-
-
-
+       
     }
-    
-    return 0;
 }
