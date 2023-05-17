@@ -12,10 +12,30 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
 using namespace std;
+
+string szukajUzytkownika(const string& fileName, const string& dowod) {
+    ifstream file(fileName);
+    string line;
+
+    while (getline(file, line)) {
+        stringstream iss(line);
+        string extractedID;
+
+        if (getline(iss, extractedID, ':')) {
+            if (extractedID == dowod) {
+                return line;
+            }
+        }
+    }
+
+    return "";
+}
 
 int main()
 {
+    string imie, nazwisko, marka, model, dzien_wypozyczenia, miesiac_wypozyczenia, rok_wypozyczenia, numer_dowodu, numer_rejestracyjny;
     int co_uzytkownik_chce;
     cout << "+------------------------------+" << endl;
     cout << "| Witaj w naszej wypozyczalni! |" << endl;
@@ -24,14 +44,13 @@ int main()
     cout << "Co chcesz zrobic?" << endl
          << "1. Wypozyczyc samochod" << endl
          << "2. Oddac wypozyczony samochod" << endl
-         << "3. Wyjsc" << endl;
+         << "3. Wyjsc" << endl << endl;
     cin >> co_uzytkownik_chce;
+    cout << endl;
 
     if (co_uzytkownik_chce == 1)
     {
         vector<string> dane;
-        string imie, nazwisko, marka, model, dzien_wypozyczenia, miesiac_wypozyczenia, rok_wypozyczenia;
-        int numer_rejestracyjny, numer_dowodu;
         while (true)
         {
             cout << "Podaj swoje imie: ";
@@ -55,7 +74,7 @@ int main()
 
             // Zapisywanie danych do wektora
 
-            dane.push_back(imie + ":" + nazwisko + ":" + to_string(numer_dowodu) + ":" + to_string(numer_rejestracyjny) + ":" + marka + ":" + model + " " + dzien_wypozyczenia + " " + miesiac_wypozyczenia + " " + rok_wypozyczenia);
+            dane.push_back(imie + ":" + nazwisko + ":" + numer_dowodu + ":" + numer_rejestracyjny + ":" + marka + ":" + model + ":" + dzien_wypozyczenia + " " + miesiac_wypozyczenia + " " + rok_wypozyczenia);
 
             // Wyświetlanie danych na ekranie
             cout << "Czy dane sa poprawne? (T/N): ";
@@ -81,19 +100,29 @@ int main()
                 plik << dana << endl;
             }
             plik.close();
-            cout << "Dane zostaly zapisane do pliku dane.txt." << endl;
+            cout << endl << "Dane zostaly zapisane." << endl << endl;
         }
         else
         {
-            cout << "Nie udalo sie otworzyc pliku dane.txt." << endl;
+            cout << endl << "Nie udalo sie otworzyc pliku dane_uzytkownika.txt." << endl << endl;
         }
-      
     }
     else if (co_uzytkownik_chce == 2)
     {
-        
-
-
-       
+        cout << "Podaj swoje imie: ";
+        cin >> imie;
+        cout << "Podaj swoje nazwisko: ";
+        cin >> nazwisko;
+        cout << "Podaj numer swojego dowodu osobistego: ";
+        cin >> numer_dowodu;
+        cout << "Podaj numer rejestracyjny samochodu: ";
+        cin >> numer_rejestracyjny;  
+        string nazwaPliku = "dane_uzytkownika.txt";
+        string foundLine = szukajUzytkownika(nazwaPliku, numer_dowodu);
+        if (!foundLine.empty()) {
+            cout << foundLine << endl;
+        } else {
+            cout << "Nie znaleziono uzytkownika, upewnij sie ze dobrze wpisany jest numer dowodu." << endl;
+        }
     }
 }
