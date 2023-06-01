@@ -9,7 +9,6 @@ class Baza_samochodow
 {
 private:
     vector<Samochod> samochody_;
-
 public:
     void add(const Samochod &s);
     void display();

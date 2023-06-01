@@ -14,7 +14,6 @@ private:
     string przebieg_;
     string kolor_;
     string cena_za_dzien_;
-
 public:
     Samochod(string firma, string model, string rocznik, string przebieg, string kolor, string cena_za_dzien);
     Samochod();

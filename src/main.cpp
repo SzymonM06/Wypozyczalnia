@@ -153,6 +153,7 @@ void wypozyczanie()
     cin >> email_wyp;
     cout << "Wyslac dane? (T/N)" << endl;
     cin >> potwierdzenie_danych_wyp;
+    
     if (potwierdzenie_danych_wyp == 'T' || potwierdzenie_danych_wyp == 't')
     {
         ofstream dane_wyporzyczajacych;

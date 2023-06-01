@@ -13,7 +13,9 @@ Samochod::Samochod(string firma,
     przebieg_(przebieg),
     kolor_(kolor),
     cena_za_dzien_(cena_za_dzien)
-{}
+{
+    
+}
 
 Samochod::Samochod()
 {
