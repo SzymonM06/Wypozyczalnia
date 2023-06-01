@@ -36,16 +36,18 @@ string szukajUzytkownika(const string& fileName, const string& dowod) {
 
 int main()
 {
+    system("@chcp 65001 >nul & cls"); //batch, Polskie znaki
     string imie, nazwisko, marka, model, dzien_wypozyczenia, miesiac_wypozyczenia, rok_wypozyczenia, numer_dowodu, numer_rejestracyjny;
     int co_uzytkownik_chce;
     cout << "+------------------------------+" << endl;
-    cout << "| Witaj w naszej wypozyczalni! |" << endl;
+    cout << "| Witaj w naszej wypożyczalni! |" << endl;
     cout << "+------------------------------+" << endl;
 
     cout << endl << "Co chcesz zrobic?" << endl
-         << "1. Wypozyczyc samochod" << endl
-         << "2. Oddac wypozyczony samochod" << endl
-         << "3. Wyjsc" << endl << endl;
+         << "1. Wypożyczyć samochód" << endl
+         << "2. Oddać wypozyczony samochód" << endl
+         << "3. Wyświetlić liste samochodów" << endl
+         << "4. Wyjść" << endl << endl;
     cin >> co_uzytkownik_chce;
     cout << endl;
 
@@ -66,7 +68,7 @@ int main()
             cin >> marka;
             cout << "Podaj model samochodu: ";
             cin >> model;
-            cout << "Podaj dzien wypozyczenia samochodu: ";
+            cout << "Podaj dzień wypozyczenia samochodu: ";
             cin >> dzien_wypozyczenia;
             cout << "Podaj miesiac wypozyczenia samochodu: ";
             cin >> miesiac_wypozyczenia;
@@ -75,10 +77,10 @@ int main()
 
             // Zapisywanie danych do wektora
 
-            dane.push_back(imie + ":" + nazwisko + ":" + numer_dowodu + ":" + numer_rejestracyjny + ":" + marka + ":" + model + ":" + dzien_wypozyczenia + " " + miesiac_wypozyczenia + " " + rok_wypozyczenia);
+            dane.push_back(imie + ":" + nazwisko + ":" + numer_dowodu + ":" + numer_rejestracyjny + ":" + marka + ":" + model + ":" + dzien_wypozyczenia + "." + miesiac_wypozyczenia + "." + rok_wypozyczenia);
 
             // Wyświetlanie danych na ekranie
-            cout << "Czy dane sa poprawne? (T/N): ";
+            cout << "Czy dane są poprawne? (T/N): ";
             char potwierdzenie;
             cin >> potwierdzenie;
             if (potwierdzenie == 'T' || potwierdzenie == 't')
@@ -101,11 +103,11 @@ int main()
                 plik << dana << endl;
             }
             plik.close();
-            cout << endl << "Dane zostaly zapisane." << endl << endl;
+            cout << endl << "Dane zostały zapisane." << endl << endl;
         }
         else
         {
-            cout << endl << "Nie udalo sie otworzyc pliku dane_uzytkownika.txt." << endl << endl;
+            cout << endl << "Nie udało sie otworzyc pliku dane_uzytkownika.txt." << endl << endl;
         }
     }
     else if (co_uzytkownik_chce == 2)
@@ -123,7 +125,22 @@ int main()
         if (!foundLine.empty()) {
             cout << foundLine << endl;
         } else {
-            cout << "Nie znaleziono uzytkownika, upewnij sie ze dobrze wpisany jest numer dowodu." << endl;
+            cout << "Nie znaleziono użytkownika, upewnij sie że dobrze wpisany jest numer dowodu." << endl;
         }
+    }
+    else if(co_uzytkownik_chce == 3) 
+    {
+        string linia;
+        ifstream mojPlik("baza_samochodow.txt");
+        if(mojPlik.is_open())
+        {
+            while(!mojPlik.eof())
+            {
+                getline(mojPlik, linia);
+                cout << linia << endl;
+            }
+            mojPlik.close();
+        }
+        else cout << "Nie można otworzyć pliku";
     }
 }
