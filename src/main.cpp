@@ -42,7 +42,7 @@ int main()
     cout << "| Witaj w naszej wypozyczalni! |" << endl;
     cout << "+------------------------------+" << endl;
 
-    cout << "Co chcesz zrobic?" << endl
+    cout << endl << "Co chcesz zrobic?" << endl
          << "1. Wypozyczyc samochod" << endl
          << "2. Oddac wypozyczony samochod" << endl
          << "3. Wyjsc" << endl << endl;
@@ -54,7 +54,7 @@ int main()
         vector<string> dane;
         while (true)
         {
-            cout << "Podaj swoje imie: ";
+            cout << endl << "Podaj swoje imie: ";
             cin >> imie;
             cout << "Podaj swoje nazwisko: ";
             cin >> nazwisko;
